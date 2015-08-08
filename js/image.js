@@ -1,5 +1,4 @@
 (function() {
-
     function getTwoDimenArray(x, y) {
         var matrix = new Array(x);
         for (var i = 0; i < x; i++) {
