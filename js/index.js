@@ -68,23 +68,42 @@ $(document).ready(function() {
 
         var matrix = Simage.toMatrix(pixel, 1080);
         var coreMatrix = [
-            [1,1,1,1,1],
-            [1,1,1,1,1],
-            [1,1,2,1,1],
-            [1,1,1,1,1],
-            [1,1,1,1,1]
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 2, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1]
         ];
         var newMatrix = Simage.calculateByMatrix(matrix, coreMatrix);
-        console.log(newMatrix);
         var newpixel = Simage.decodeMatrix(newMatrix);
-        console.log(pixel);
         for (var i = 0, length = pixel.length; i < length; i += 4) {
             pixel[i] = newpixel[i];
-            pixel[i+1] = newpixel[i+1];
-            pixel[i+2] = newpixel[i+2];
-            pixel[i+3] = newpixel[i+3];
+            pixel[i + 1] = newpixel[i + 1];
+            pixel[i + 2] = newpixel[i + 2];
+            pixel[i + 3] = newpixel[i + 3];
         }
-        console.log(imageData);
+        context.putImageData(imageData, 0, 0);
+    });
+
+    $('.edge').click(function(){
+        var context = $('#canvas')[0].getContext('2d');
+        var imageData = context.getImageData(0, 0, 1080, 900);
+        var pixel = imageData.data;
+
+        var matrix = Simage.toMatrix(pixel, 1080);
+        var coreMatrix = [
+            [2,-1,2],
+            [-1,-4,-1],
+            [2,-1,2]
+        ];
+        var newMatrix = Simage.calculateByMatrix(matrix, coreMatrix);
+        var newpixel = Simage.decodeMatrix(newMatrix);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i] = newpixel[i];
+            pixel[i + 1] = newpixel[i + 1];
+            pixel[i + 2] = newpixel[i + 2];
+            pixel[i + 3] = newpixel[i + 3];
+        }
         context.putImageData(imageData, 0, 0);
     })
 });

@@ -94,6 +94,9 @@
                     }
                     countx++;
                 }
+                if(average == 0){
+                    average=1;
+                }
                 R = round(rTotal / average);
                 G = round(gTotal / average);
                 B = round(bTotal / average);
