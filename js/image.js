@@ -1,4 +1,22 @@
 (function() {
+    var matrixData = {
+        gaussianBlur: [
+            [1, 4, 6, 4, 1],
+            [4, 16, 24, 16, 4],
+            [6, 24, 36, 24, 6],
+            [4, 16, 24, 26, 4],
+            [1, 4, 6, 4, 1],
+        ],
+        edge: [
+            [2, -1, 2],
+            [-1, -4, -1],
+            [2, -1, 2],
+        ]
+    };
+
+
+
+
     function getTwoDimenArray(x, y) {
         var matrix = new Array(x);
         for (var i = 0; i < x; i++) {
@@ -94,8 +112,8 @@
                     }
                     countx++;
                 }
-                if(average == 0){
-                    average=1;
+                if (average == 0) {
+                    average = 1;
                 }
                 R = round(rTotal / average);
                 G = round(gTotal / average);
@@ -107,9 +125,60 @@
         return newMatrix;
     }
 
+    function gaussianBlur(imageData) {
+        var pixel = imageData.data;
+        var matrix = toMatrix(pixel, 1080);
+        var coreMatrix = matrixData.gaussianBlur;
+        var newMatrix = calculateByMatrix(matrix, coreMatrix);
+        var newpixel = decodeMatrix(newMatrix);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i] = newpixel[i];
+            pixel[i + 1] = newpixel[i + 1];
+            pixel[i + 2] = newpixel[i + 2];
+            pixel[i + 3] = newpixel[i + 3];
+        };
+        return;
+    }
+
+    function edge(imageData) {
+        var pixel = imageData.data;
+        var matrix = toMatrix(pixel, 1080);
+        var coreMatrix = matrixData.edge;
+        var newMatrix = calculateByMatrix(matrix, coreMatrix);
+        var newpixel = decodeMatrix(newMatrix);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i] = newpixel[i];
+            pixel[i + 1] = newpixel[i + 1];
+            pixel[i + 2] = newpixel[i + 2];
+            pixel[i + 3] = newpixel[i + 3];
+        };
+        return;
+    }
+
+    function blackAndWhite(imageData) {
+        var pixel = imageData.data;
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i + 2] = pixel[i + 1] = pixel[i] = (pixel[i] * 2 + pixel[i + 1] * 5 + pixel[i + 2] * 1) >> 3;
+        }
+        return;
+    }
+
+    function colorFlip(imageData) {
+        var pixel = imageData.data;
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i] = 225 - pixel[i];
+            pixel[i + 1] = 225 - pixel[i + 1]
+            pixel[i + 2] = 225 - pixel[i + 2]
+        }
+    }
+
     window.Simage = {
         toMatrix: toMatrix,
         calculateByMatrix: calculateByMatrix,
-        decodeMatrix: decodeMatrix
+        decodeMatrix: decodeMatrix,
+        gaussianBlur: gaussianBlur,
+        edge: edge,
+        blackAndWhite: blackAndWhite,
+        colorFlip: colorFlip
     }
 })()
