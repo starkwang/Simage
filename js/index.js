@@ -18,7 +18,7 @@ function draw(img, width, height) {
         [1, 2, 1]
     ];
     var newMatrix = Simage.calculateByMatrix(matrix, coreMatrix);
-    console.log(newMatrix);
+
     for (var i = 0, length = pixel.length; i < length; i += 4) {
         //pixel[i + 2] = pixel[i + 1] = pixel[i] = (pixel[i] * 19595 + pixel[i + 1] * 38469 + pixel[i + 2] * 7472) >> 16;
     }
@@ -53,11 +53,38 @@ $(document).ready(function() {
         var context = $('#canvas')[0].getContext('2d');
         var imageData = context.getImageData(0, 0, 1080, 900);
         var pixel = imageData.data;
-        // for (var i = 0, length = pixel.length; i < length; i += 4) {
-        //     pixel[i + 2] = pixel[i + 1] = pixel[i] = (pixel[i] * 2 + pixel[i + 1] * 5 + pixel[i + 2] * 1) >> 3;
-        // }
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i + 2] = pixel[i + 1] = pixel[i] = (pixel[i] * 2 + pixel[i + 1] * 5 + pixel[i + 2] * 1) >> 3;
+        }
 
-        //imageData.data = pixel;
+        imageData.data = pixel;
+        context.putImageData(imageData, 0, 0);
+    });
+
+    $('.gaosi').click(function() {
+        var context = $('#canvas')[0].getContext('2d');
+        var imageData = context.getImageData(0, 0, 1080, 900);
+        var pixel = imageData.data;
+
+        var matrix = Simage.toMatrix(pixel, 1080);
+        var coreMatrix = [
+            [1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,2,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1]
+        ];
+        var newMatrix = Simage.calculateByMatrix(matrix, coreMatrix);
+        console.log(newMatrix);
+        var newpixel = Simage.decodeMatrix(newMatrix);
+        console.log(pixel);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i] = newpixel[i];
+            pixel[i+1] = newpixel[i+1];
+            pixel[i+2] = newpixel[i+2];
+            pixel[i+3] = newpixel[i+3];
+        }
+        console.log(imageData);
         context.putImageData(imageData, 0, 0);
     })
 });

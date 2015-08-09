@@ -28,6 +28,31 @@
         return matrix;
     }
 
+    function decodeMatrix(dataMatrix) {
+        var width = dataMatrix.length;
+        var height = dataMatrix[0].length;
+        var pixelData = new Uint8ClampedArray(width * height * 4);
+
+        var counter = 0;
+        for (var j = 0; j < height; j++) {
+            for (var i = 0; i < width; i++) {
+                pixelData[counter] = dataMatrix[i][j].R;
+                pixelData[counter + 1] = dataMatrix[i][j].G;
+                pixelData[counter + 2] = dataMatrix[i][j].B;
+
+                if (dataMatrix[i][j].A == undefined) {
+                    pixelData[counter + 3] = 255;
+                } else {
+                    pixelData[counter + 3] = dataMatrix[i][j].A;
+                }
+
+                counter = counter + 4;
+            }
+        }
+        console.log(pixelData);
+        return pixelData;
+    }
+
     function calculateByMatrix(dataMatrix, coreMatrix) {
         if (coreMatrix.length % 2 == 0) {
             alert('核矩阵不正确！');
@@ -81,6 +106,7 @@
 
     window.Simage = {
         toMatrix: toMatrix,
-        calculateByMatrix: calculateByMatrix
+        calculateByMatrix: calculateByMatrix,
+        decodeMatrix: decodeMatrix
     }
 })()
