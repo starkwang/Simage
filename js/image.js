@@ -147,6 +147,46 @@
         return;
     }
 
+    function medianFilter(imageData) {
+        var pixel = imageData.data;
+        var matrix = toMatrix(pixel, 1080);
+        var newMatrix = getTwoDimenArray(matrix.length, matrix[0].length);
+
+        function sortNumber(a, b) {
+            return a - b
+        }
+        for (var x = 0; x < matrix.length; x++) {
+            for (var y = 0; y < matrix[x].length; y++) {
+                var arr = new Array(8);
+                var left = matrix[x - 1] || matrix[x];
+                var right = matrix[x + 1] || matrix[x];
+
+                arr[0] = left[y - 1] || matrix[x][y];
+                arr[1] = matrix[x][y - 1] || matrix[x][y];
+                arr[2] = right[y - 1] || matrix[x][y];
+                arr[3] = left[y] || matrix[x][y];
+                arr[4] = matrix[x][y] || matrix[x][y];
+                arr[5] = right[y] || matrix[x][y];
+                arr[6] = left[y + 1] || matrix[x][y];
+                arr[7] = matrix[x][y + 1] || matrix[x][y];
+                arr[8] = right[y + 1] || matrix[x][y];
+
+                var newR = [arr[0].R, arr[1].R, arr[2].R, arr[3].R, arr[4].R, arr[5].R, arr[6].R, arr[7].R].sort(sortNumber)[4];
+                var newG = [arr[0].G, arr[1].G, arr[2].G, arr[3].G, arr[4].G, arr[5].G, arr[6].G, arr[7].G].sort(sortNumber)[4];
+                var newB = [arr[0].B, arr[1].B, arr[2].B, arr[3].B, arr[4].B, arr[5].B, arr[6].B, arr[7].B].sort(sortNumber)[4];
+                newMatrix[x][y] = new matrixFactory(newR, newG, newB);
+            }
+        }
+        var newpixel = decodeMatrix(newMatrix);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            pixel[i] = newpixel[i];
+            pixel[i + 1] = newpixel[i + 1];
+            pixel[i + 2] = newpixel[i + 2];
+            pixel[i + 3] = newpixel[i + 3];
+        };
+        return;
+    }
+
     function edge(imageData) {
         var pixel = imageData.data;
         var matrix = toMatrix(pixel, 1080);
@@ -244,6 +284,7 @@
         blackAndWhite: blackAndWhite,
         colorFlip: colorFlip,
         sharpen: sharpen,
+        medianFilter: medianFilter,
         histogramBlance: histogramBlance
     }
 })()

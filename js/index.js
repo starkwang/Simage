@@ -74,6 +74,12 @@ $(document).ready(function() {
         Simage.histogramBlance(imageData);
         context.putImageData(imageData, 0, 0);
     })
+    $('.medianFilter').click(function() {
+        var context = $('#canvas')[0].getContext('2d');
+        var imageData = context.getImageData(0, 0, 1080, 900);
+        Simage.medianFilter(imageData);
+        context.putImageData(imageData, 0, 0);
+    })
     $('.download').click(function() {
         var href = $('#canvas')[0].toDataURL('image/png').replace("image/png", "image/octet-stream");
         window.location.href = href;
