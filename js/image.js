@@ -263,6 +263,47 @@
         return;
     }
 
+    function histogramBlanceWithColor(imageData) {
+        var pixel = imageData.data;
+        var hsvData = new Array(pixel.length);
+        var Vamount = new Array(256);
+        var Vmap = new Array(256);
+        var totalPixel = 0;
+        for (var i = 0; i < 256; i++) {
+            Vamount[i] = 0;
+        }
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            var HSV = RGBtoHSV(pixel[i], pixel[i + 1], pixel[i + 2]);
+            hsvData[i] = HSV[0];
+            hsvData[i + 1] = HSV[1];
+            hsvData[i + 2] = HSV[2];
+            hsvData[i + 3] = 0;
+            Vamount[HSV[2]] += 1;
+            totalPixel += 1;
+        }
+        for (var i = 0; i < 256; i++) {
+            var counterV = 0;
+            for (var j = 0; j <= i; j++) {
+                counterV = counterV + Vamount[j];
+            }
+            Vmap[i] = Math.round(counterV / totalPixel * 255);
+        }
+        console.log(Vmap);
+        for (var i = 0, length = hsvData.length; i < length; i += 4) {
+            hsvData[i + 2] = Vmap[hsvData[i + 2]];
+        }
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            var RGB = HSVtoRGB(hsvData[i], hsvData[i + 1], hsvData[i + 2])
+            pixel[i] = RGB[0];
+            pixel[i + 1] = RGB[1];
+            pixel[i + 2] = RGB[2];
+
+            if (RGB[0] == 0 && RGB[1] == 0 && RGB[2] == 0) {
+                //console.log(i, hsvData[i], hsvData[i + 1], hsvData[i + 2]);
+            }
+        }
+    }
+
     function colorFlip(imageData) {
         var pixel = imageData.data;
         for (var i = 0, length = pixel.length; i < length; i += 4) {
@@ -273,12 +314,13 @@
         return;
     }
 
+
     function RGBtoHSV(r, g, b) {
         var max = Math.max(r, g, b);
         var min = Math.min(r, g, b);
         var h, s, v;
         if (max === min) {
-            return [0, 0, max / 225];
+            return [0, 0, max];
         }
         if (r === max) {
             h = (g - b) / (max - min);
@@ -295,11 +337,14 @@
         }
         v = max;
         s = (max - min) / max;
+        if (h == 0 && s == 0 && v == 0) {
+            console(r, g, b);
+        }
         return [h, s, v];
     }
 
     function HSVtoRGB(h, s, v) {
-        var max = 225 * v;
+        var max = v;
         var R, G, B;
         if (s === 0) {
             return [max, max, max];
@@ -342,7 +387,7 @@
                     B = b;
                     break;
             }
-            return [Math.ceil(R), Math.ceil(G), Math.ceil(B)];
+            return [R, G, B];
         }
 
     }
@@ -357,6 +402,7 @@
         colorFlip: colorFlip,
         sharpen: sharpen,
         medianFilter: medianFilter,
-        histogramBlance: histogramBlance
+        histogramBlance: histogramBlance,
+        histogramBlanceWithColor: histogramBlanceWithColor
     }
 })()

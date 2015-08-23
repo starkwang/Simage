@@ -71,7 +71,7 @@ $(document).ready(function() {
     $('.histogramBlance').click(function() {
         var context = $('#canvas')[0].getContext('2d');
         var imageData = context.getImageData(0, 0, 1080, 900);
-        Simage.histogramBlance(imageData);
+        Simage.histogramBlanceWithColor(imageData);
         context.putImageData(imageData, 0, 0);
     })
     $('.medianFilter').click(function() {
