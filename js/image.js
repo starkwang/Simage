@@ -273,7 +273,79 @@
         return;
     }
 
+    function RGBtoHSV(r, g, b) {
+        var max = Math.max(r, g, b);
+        var min = Math.min(r, g, b);
+        var h, s, v;
+        if (max === min) {
+            return [0, 0, max / 225];
+        }
+        if (r === max) {
+            h = (g - b) / (max - min);
+        }
+        if (g === max) {
+            h = 2 + (b - r) / (max - min);
+        }
+        if (b === max) {
+            h = 4 + (r - g) / (max - min)
+        }
+        h = h * 60;
+        if (h < 0) {
+            h = h + 360;
+        }
+        v = max;
+        s = (max - min) / max;
+        return [h, s, v];
+    }
 
+    function HSVtoRGB(h, s, v) {
+        var max = 225 * v;
+        var R, G, B;
+        if (s === 0) {
+            return [max, max, max];
+        } else {
+            var h = h / 60;
+            var i = Math.floor(h);
+            var f = h - i;
+            var a = v * (1 - s);
+            var b = v * (1 - s * f);
+            var c = v * (1 - s * (1 - f));
+            switch (i) {
+                case 0:
+                    R = v;
+                    G = c;
+                    B = a;
+                    break;
+                case 1:
+                    R = b;
+                    G = v;
+                    B = a;
+                    break;
+                case 2:
+                    R = a;
+                    G = v;
+                    B = c;
+                    break;
+                case 3:
+                    R = a;
+                    G = b;
+                    B = v;
+                    break;
+                case 4:
+                    R = c;
+                    G = a;
+                    B = v;
+                    break;
+                case 5:
+                    R = v;
+                    G = a;
+                    B = b;
+                    break;
+            }
+            return [Math.ceil(R), Math.ceil(G), Math.ceil(B)];
+        }
+
+    }
 
     window.Simage = {
         toMatrix: toMatrix,
