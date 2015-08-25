@@ -132,9 +132,9 @@
         return newMatrix;
     }
 
-    function gaussianBlur(imageData) {
+    function gaussianBlur(imageData, width) {
         var pixel = imageData.data;
-        var matrix = toMatrix(pixel, 1080);
+        var matrix = toMatrix(pixel, width);
         var coreMatrix = matrixData.gaussianBlur;
         var newMatrix = calculateByMatrix(matrix, coreMatrix);
         var newpixel = decodeMatrix(newMatrix);
@@ -147,9 +147,9 @@
         return;
     }
 
-    function medianFilter(imageData) {
+    function medianFilter(imageData, width) {
         var pixel = imageData.data;
-        var matrix = toMatrix(pixel, 1080);
+        var matrix = toMatrix(pixel, width);
         var newMatrix = getTwoDimenArray(matrix.length, matrix[0].length);
 
         function sortNumber(a, b) {
@@ -187,9 +187,9 @@
         return;
     }
 
-    function edge(imageData) {
+    function edge(imageData, width) {
         var pixel = imageData.data;
-        var matrix = toMatrix(pixel, 1080);
+        var matrix = toMatrix(pixel, width);
         var coreMatrix = matrixData.edge;
         var newMatrix = calculateByMatrix(matrix, coreMatrix);
         var newpixel = decodeMatrix(newMatrix);
@@ -202,9 +202,9 @@
         return;
     }
 
-    function sharpen(imageData) {
+    function sharpen(imageData, width) {
         var pixel = imageData.data;
-        var matrix = toMatrix(pixel, 1080);
+        var matrix = toMatrix(pixel, width);
         var coreMatrix = matrixData.sharpen;
         var newMatrix = calculateByMatrix(matrix, coreMatrix);
         var newpixel = decodeMatrix(newMatrix);
