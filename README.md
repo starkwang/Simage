@@ -8,7 +8,7 @@ A lightweight image processing library for Javascript , based on Canvas.
 #Usage#
 Import `Simage.js`
 
-    <script type="text/javascript" src="graphic.js"></script>
+    <script type="text/javascript" src="Simage.js"></script>
     
 Then you can use it to process data from canvas. 
 
