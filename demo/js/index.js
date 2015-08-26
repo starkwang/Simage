@@ -46,14 +46,14 @@ $(document).ready(function() {
     $('.gaosi').click(function() {
         var context = $('#canvas')[0].getContext('2d');
         var imageData = context.getImageData(0, 0, 1080, 900);
-        Simage.gaussianBlur(imageData);
+        Simage.gaussianBlur(imageData, 1080);
         context.putImageData(imageData, 0, 0);
     });
 
     $('.edge').click(function() {
         var context = $('#canvas')[0].getContext('2d');
         var imageData = context.getImageData(0, 0, 1080, 900);
-        Simage.edge(imageData);
+        Simage.edge(imageData, 1080);
         context.putImageData(imageData, 0, 0);
     })
     $('.flip').click(function() {
@@ -65,7 +65,7 @@ $(document).ready(function() {
     $('.sharpen').click(function() {
         var context = $('#canvas')[0].getContext('2d');
         var imageData = context.getImageData(0, 0, 1080, 900);
-        Simage.sharpen(imageData);
+        Simage.sharpen(imageData, 1080);
         context.putImageData(imageData, 0, 0);
     })
     $('.histogramBlance').click(function() {
@@ -77,7 +77,7 @@ $(document).ready(function() {
     $('.medianFilter').click(function() {
         var context = $('#canvas')[0].getContext('2d');
         var imageData = context.getImageData(0, 0, 1080, 900);
-        Simage.medianFilter(imageData);
+        Simage.medianFilter(imageData, 1080);
         context.putImageData(imageData, 0, 0);
     })
     $('.download').click(function() {
