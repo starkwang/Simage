@@ -3,6 +3,8 @@ A lightweight image processing library for Javascript , based on Canvas.
 
 轻量级的Javascript图像处理库，基于Canvas
 
+[Demo][1]
+
 -------
 
 #Usage#
@@ -95,3 +97,6 @@ Blance the histogram of image , more efficient than `.histogramBlanceWithColor()
 Blance the histogram of a image with color , also worked with black & white picture.
 
 彩色图片的直方图均衡化，黑白图片也能用。
+
+
+  [1]: http://starkwang.github.io/Simage/
