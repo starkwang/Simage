@@ -28,7 +28,7 @@ function draw(img, width, height) {
 }
 $(document).ready(function() {
     var img = new Image();
-    img.src = "/img/pic.jpg";
+    img.src = "/Simage/img/pic.jpg";
     $(img).load(function() {
         draw(img, 1080, 600);
     });
