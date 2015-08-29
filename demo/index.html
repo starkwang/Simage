@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" /><head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+
+<head>
   <title>image</title>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
-  <script type="text/javascript" src="./js/jquery-2.1.3.js"> </script>
+  <script type="text/javascript" src="./js/jquery.min.js">
+  </script>
   <script type="text/javascript" src="./js/index.js"></script>
   <script type="text/javascript" src="./js/Simage.js"></script>
 </head>
 
 <body>
-  <img class="pic" src="./img/pic.jpg">
-  <canvas id="canvas" width="1080px" height="1080px"></canvas>
-  <button class="change">黑白</button>
-  <button class="gaosi">高斯模糊</button>
-  <button class="edge">边缘化</button>
-  <button class="flip">颜色反相</button>
-  <button class="sharpen">锐化</button>
-  <button class="medianFilter">中值滤波</button>
-  <button class="histogramBlance">直方图均衡化</button>
-  <button class="download">下载图像</button>
+  <div class="header">
+    <div class="title">SimageJS</div>
+    <p class="author">by <a href="https://github.com/starkwang/">starkwang</a></p>
+    <a class="github" href="https://github.com/starkwang/Simage/">Github</a>
+  </div>
+  <canvas id="canvas" width="1080px" height="600px"></canvas>
+  <div class="buttonarea">
+
+    <li><button class="change button">Black&White 黑白</button></li>
+    <li><button class="gaosi button">Gaussian Blur 高斯模糊</button></li>
+    <li><button class="edge button">Edge 边缘化</button></li>
+    <li><button class="flip button">Color Flip 颜色反相</button></li>
+    <li><button class="sharpen button">Sharpen 锐化</button></li>
+    <li><button class="medianFilter button">Median Filter 中值滤波</button></li>
+    <li><button class="histogramBlance button">Histogram Blance With Color 直方图均衡化</button></li>
+    <li><button class="download button">Download 下载图像</button></li>
+  </div>
 </body>
 
 </html>
