@@ -40,6 +40,25 @@ Change image into black and white.
 黑白化
 
 ----------
+**`Simage.modifiedSaturation(imageData, value)`**
+
+Change the saturation of the image.
+
+@params {number} `value` : a number between -1.0 ~ 1.0 , the value you want to modify.
+
+饱和度调整，参数`value`为一个数字，大小在-1.0~1.0之间，表示饱和度的调整大小。
+
+-------------
+
+**`Simage.modifiedLight(imageData, value)`**
+
+Change the light of the image.
+
+@params {number} `value` : a number between -255 ~ 255 , the value you want to modify.
+
+亮度调整，参数`value`为一个数字，大小在-255~255之间，表示亮度的调整大小。
+
+---------
 **`Simage.gaussianBlur(imageData, imageWith)`**
 
 Process image with gassian blur.
