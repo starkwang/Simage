@@ -262,6 +262,24 @@
         for (var i = 0, length = pixel.length; i < length; i += 4) {
             var HSV = RGBtoHSV(pixel[i], pixel[i + 1], pixel[i + 2]);
             hsvData[i] = HSV[0];
+            hsvData[i + 1] = HSV[1] + value;
+            hsvData[i + 2] = HSV[2];
+            hsvData[i + 3] = 0;
+        }
+        for (var i = 0, length = hsvData.length; i < length; i += 4) {
+            var RGB = HSVtoRGB(hsvData[i], hsvData[i + 1], hsvData[i + 2]);
+            pixel[i] = RGB[0];
+            pixel[i + 1] = RGB[1];
+            pixel[i + 2] = RGB[2];
+        }
+    }
+
+    function modifiedLight(imageData, value) {
+        var pixel = imageData.data;
+        var hsvData = new Array(pixel.length);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            var HSV = RGBtoHSV(pixel[i], pixel[i + 1], pixel[i + 2]);
+            hsvData[i] = HSV[0];
             hsvData[i + 1] = HSV[1];
             hsvData[i + 2] = HSV[2] + value;
             hsvData[i + 3] = 0;
@@ -406,6 +424,7 @@
         sharpen: sharpen,
         medianFilter: medianFilter,
         modifiedSaturation: modifiedSaturation,
+        modifiedLight: modifiedLight,
         histogramBlance: histogramBlance,
         histogramBlanceWithColor: histogramBlanceWithColor
     }
