@@ -42,7 +42,18 @@ $(document).ready(function() {
         Simage.blackAndWhite(imageData);
         context.putImageData(imageData, 0, 0);
     });
-
+    $('.saturation').click(function(){
+        var context = $('#canvas')[0].getContext('2d');
+        var imageData = context.getImageData(0, 0, 1080, 900);
+        Simage.modifiedSaturation(imageData,0.1);
+        context.putImageData(imageData, 0, 0);
+    });
+    $('.light').click(function(){
+        var context = $('#canvas')[0].getContext('2d');
+        var imageData = context.getImageData(0, 0, 1080, 900);
+        Simage.modifiedLight(imageData,5);
+        context.putImageData(imageData, 0, 0);
+    });
     $('.gaosi').click(function() {
         var context = $('#canvas')[0].getContext('2d');
         var imageData = context.getImageData(0, 0, 1080, 900);
