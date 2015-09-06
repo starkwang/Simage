@@ -74,7 +74,6 @@
                 counter = counter + 4;
             }
         }
-        console.log(pixelData);
         return pixelData;
     }
 
@@ -104,14 +103,7 @@
                         if (x >= dataMatrix.length || y >= dataMatrix[0].length) {
                             continue;
                         }
-
-                        try {
-                            rTotal += dataMatrix[x][y].R * coreMatrix[county][countx];
-                        } catch (e) {
-                            console.log(x, y);
-                            window.dataMatrix = dataMatrix;
-                        }
-
+                        rTotal += dataMatrix[x][y].R * coreMatrix[county][countx];
                         gTotal += dataMatrix[x][y].G * coreMatrix[county][countx];
                         bTotal += dataMatrix[x][y].B * coreMatrix[county][countx];
                         average += coreMatrix[county][countx];
@@ -263,6 +255,43 @@
         return;
     }
 
+
+    function modifiedSaturation(imageData, value) {
+        var pixel = imageData.data;
+        var hsvData = new Array(pixel.length);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            var HSV = RGBtoHSV(pixel[i], pixel[i + 1], pixel[i + 2]);
+            hsvData[i] = HSV[0];
+            hsvData[i + 1] = HSV[1] + value;
+            hsvData[i + 2] = HSV[2];
+            hsvData[i + 3] = 0;
+        }
+        for (var i = 0, length = hsvData.length; i < length; i += 4) {
+            var RGB = HSVtoRGB(hsvData[i], hsvData[i + 1], hsvData[i + 2]);
+            pixel[i] = RGB[0];
+            pixel[i + 1] = RGB[1];
+            pixel[i + 2] = RGB[2];
+        }
+    }
+
+    function modifiedLight(imageData, value) {
+        var pixel = imageData.data;
+        var hsvData = new Array(pixel.length);
+        for (var i = 0, length = pixel.length; i < length; i += 4) {
+            var HSV = RGBtoHSV(pixel[i], pixel[i + 1], pixel[i + 2]);
+            hsvData[i] = HSV[0];
+            hsvData[i + 1] = HSV[1];
+            hsvData[i + 2] = HSV[2] + value;
+            hsvData[i + 3] = 0;
+        }
+        for (var i = 0, length = hsvData.length; i < length; i += 4) {
+            var RGB = HSVtoRGB(hsvData[i], hsvData[i + 1], hsvData[i + 2]);
+            pixel[i] = RGB[0];
+            pixel[i + 1] = RGB[1];
+            pixel[i + 2] = RGB[2];
+        }
+    }
+
     function histogramBlanceWithColor(imageData) {
         var pixel = imageData.data;
         var hsvData = new Array(pixel.length);
@@ -288,7 +317,6 @@
             }
             Vmap[i] = Math.round(counterV / totalPixel * 255);
         }
-        console.log(Vmap);
         for (var i = 0, length = hsvData.length; i < length; i += 4) {
             hsvData[i + 2] = Vmap[hsvData[i + 2]];
         }
@@ -297,10 +325,6 @@
             pixel[i] = RGB[0];
             pixel[i + 1] = RGB[1];
             pixel[i + 2] = RGB[2];
-
-            if (RGB[0] == 0 && RGB[1] == 0 && RGB[2] == 0) {
-                //console.log(i, hsvData[i], hsvData[i + 1], hsvData[i + 2]);
-            }
         }
     }
 
@@ -337,9 +361,6 @@
         }
         v = max;
         s = (max - min) / max;
-        if (h == 0 && s == 0 && v == 0) {
-            console(r, g, b);
-        }
         return [h, s, v];
     }
 
@@ -402,6 +423,8 @@
         colorFlip: colorFlip,
         sharpen: sharpen,
         medianFilter: medianFilter,
+        modifiedSaturation: modifiedSaturation,
+        modifiedLight: modifiedLight,
         histogramBlance: histogramBlance,
         histogramBlanceWithColor: histogramBlanceWithColor
     }

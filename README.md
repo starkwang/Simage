@@ -3,6 +3,8 @@ A lightweight image processing library for Javascript , based on Canvas.
 
 轻量级的Javascript图像处理库，基于Canvas
 
+[Demo][1]
+
 -------
 
 #Usage#
@@ -38,6 +40,25 @@ Change image into black and white.
 黑白化
 
 ----------
+**`Simage.modifiedSaturation(imageData, value)`**
+
+Change the saturation of the image.
+
+@params {number} `value` : a number between -1.0 ~ 1.0 , the value you want to modify.
+
+饱和度调整，参数`value`为一个数字，大小在-1.0~1.0之间，表示饱和度的调整大小。
+
+-------------
+
+**`Simage.modifiedLight(imageData, value)`**
+
+Change the light of the image.
+
+@params {number} `value` : a number between -255 ~ 255 , the value you want to modify.
+
+亮度调整，参数`value`为一个数字，大小在-255~255之间，表示亮度的调整大小。
+
+---------
 **`Simage.gaussianBlur(imageData, imageWith)`**
 
 Process image with gassian blur.
@@ -95,3 +116,6 @@ Blance the histogram of image , more efficient than `.histogramBlanceWithColor()
 Blance the histogram of a image with color , also worked with black & white picture.
 
 彩色图片的直方图均衡化，黑白图片也能用。
+
+
+  [1]: http://starkwang.github.io/Simage/

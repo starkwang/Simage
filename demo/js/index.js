@@ -5,7 +5,7 @@ function draw(img, width, height) {
     context.shadowBlur = 20;
     context.shadowColor = "#DDDDDD";
     context.drawImage(img, 0, 0, width, height);
-    var imageData = context.getImageData(0, 0, 1080, 900);
+    var imageData = context.getImageData(0, 0, 1080, 600);
     var pixel = imageData.data;
     for (var i = 0, length = pixel.length; i < length; i += 4) {
         //pixel[i + 2] = pixel[i + 1] = pixel[i] = (pixel[i] * 19595 + pixel[i + 1] * 38469 + pixel[i + 2] * 7472) >> 16;
@@ -28,9 +28,9 @@ function draw(img, width, height) {
 }
 $(document).ready(function() {
     var img = new Image();
-    img.src = "../img/pic.jpg";
+    img.src = "/Simage/img/pic.jpg";
     $(img).load(function() {
-        draw(img, 1080, 900);
+        draw(img, 1080, 600);
     });
 
 
