@@ -15,6 +15,11 @@
  */
 
 (function() {
+
+    /**
+     * [matrixData The collection of the core matrix of the convolution]
+     * @type {Object}
+     */
     var matrixData = {
         gaussianBlur: [
             [1, 4, 6, 4, 1],
@@ -107,6 +112,11 @@
         return pixelData;
     }
 
+    /**
+     * @param  {Array}  dataMatrix  A two dimen array with image data
+     * @param  {Array}  coreMatrix  The core matrix of the convolution
+     * @return {Array}  newMatrix   A new array with image data after calculate
+     */
     function calculateByMatrix(dataMatrix, coreMatrix) {
         if (coreMatrix.length % 2 == 0) {
             alert('核矩阵不正确！');
@@ -154,6 +164,12 @@
         return newMatrix;
     }
 
+
+    /**
+     * Algorithm of gaussian blur
+     * @param  {Array}  imageData  The pixcel data of the image
+     * @param  {Number} width      The width of the image
+     */
     function gaussianBlur(imageData, width) {
         var pixel = imageData.data;
         var matrix = toMatrix(pixel, width);
@@ -169,6 +185,12 @@
         return;
     }
 
+
+    /**
+     * Algorithm of median filter
+     * @param  {Array}  imageData  The pixcel data of the image
+     * @param  {Number} width      The width of the image
+     */
     function medianFilter(imageData, width) {
         var pixel = imageData.data;
         var matrix = toMatrix(pixel, width);
@@ -209,6 +231,12 @@
         return;
     }
 
+
+    /**
+     * Algorithm of getting the edge of image
+     * @param  {Array}  imageData  The pixcel data of the image
+     * @param  {Number} width      The width of the image
+     */
     function edge(imageData, width) {
         var pixel = imageData.data;
         var matrix = toMatrix(pixel, width);
@@ -224,6 +252,12 @@
         return;
     }
 
+
+    /**
+     * Algorithm of sharpening image
+     * @param  {Array}  imageData  The pixcel data of the image
+     * @param  {Number} width      The width of the image
+     */
     function sharpen(imageData, width) {
         var pixel = imageData.data;
         var matrix = toMatrix(pixel, width);
@@ -239,6 +273,11 @@
         return;
     }
 
+
+    /**
+     * Algorithm of changing image into black&white
+     * @param  {Array}  imageData  The pixcel data of the image
+     */
     function blackAndWhite(imageData) {
         var pixel = imageData.data;
         for (var i = 0, length = pixel.length; i < length; i += 4) {
@@ -247,6 +286,11 @@
         return;
     }
 
+
+    /**
+     * Algorithm of histogram blancing
+     * @param  {Array}  imageData  The pixcel data of the image
+     */
     function histogramBlance(imageData) {
         var pixel = imageData.data;
         var totalPixel = 0;
@@ -286,7 +330,12 @@
     }
 
 
-    function modifiedSaturation(imageData, value) {
+    /**
+     * Modify the saturation of image
+     * @param  {Array}  imageData  The pixcel data of the image
+     * @param  {Number} value      The value you want to change, -1.0 < value < 1.0 
+     */
+    function modifySaturation(imageData, value) {
         var pixel = imageData.data;
         var hsvData = new Array(pixel.length);
         for (var i = 0, length = pixel.length; i < length; i += 4) {
@@ -304,7 +353,13 @@
         }
     }
 
-    function modifiedLight(imageData, value) {
+
+    /**
+     * Modify the light of image
+     * @param  {Array}  imageData  The pixcel data of the image
+     * @param  {Number} value      The value you want to change, -255 < value < 255 
+     */
+    function modifyLight(imageData, value) {
         var pixel = imageData.data;
         var hsvData = new Array(pixel.length);
         for (var i = 0, length = pixel.length; i < length; i += 4) {
@@ -322,6 +377,11 @@
         }
     }
 
+
+    /**
+     * Algorithm of histogram blancing with colorful image
+     * @param  {Array}  imageData  The pixcel data of the image
+     */
     function histogramBlanceWithColor(imageData) {
         var pixel = imageData.data;
         var hsvData = new Array(pixel.length);
@@ -358,6 +418,10 @@
         }
     }
 
+    /**
+     * Algorithm of color flipping
+     * @param  {Array}  imageData  The pixcel data of the image
+     */
     function colorFlip(imageData) {
         var pixel = imageData.data;
         for (var i = 0, length = pixel.length; i < length; i += 4) {
@@ -369,6 +433,10 @@
     }
 
 
+    /**
+     * Change RGB into HSV
+     * @return  {Array}  [H,S,V]
+     */
     function RGBtoHSV(r, g, b) {
         var max = Math.max(r, g, b);
         var min = Math.min(r, g, b);
@@ -394,6 +462,11 @@
         return [h, s, v];
     }
 
+
+    /**
+     * Change HSV into RGB
+     * @return  {Array}  [R,G,B]
+     */
     function HSVtoRGB(h, s, v) {
         var max = v;
         var R, G, B;
@@ -452,8 +525,8 @@
         colorFlip: colorFlip,
         sharpen: sharpen,
         medianFilter: medianFilter,
-        modifiedSaturation: modifiedSaturation,
-        modifiedLight: modifiedLight,
+        modifySaturation: modifySaturation,
+        modifyLight: modifyLight,
         histogramBlance: histogramBlance,
         histogramBlanceWithColor: histogramBlanceWithColor
     }
