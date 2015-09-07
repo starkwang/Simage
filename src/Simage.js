@@ -1,3 +1,19 @@
+/** 
+ *
+ * 
+ /ˉˉˉˉˉˉˉˉˉ||ˉˉˉˉˉˉˉˉˉˉ||ˉˉˉˉˉˉˉˉˉˉˉ|     /\       /ˉˉˉˉˉˉ\  |ˉˉˉˉˉˉˉˉˉˉ|
+/ /ˉˉˉˉˉˉˉˉ  ˉˉˉ|  |ˉˉˉ | |ˉˉ| |ˉˉ| |    /  \     / /ˉˉˉˉ\ | | |ˉˉˉˉˉˉˉˉ 
+\ ˉˉˉˉˉˉˉˉ\     |  |    | |  | |  | |   / /\ \   | |      ˉˉ |  ˉˉˉˉˉˉˉˉ|
+ ˉˉˉˉˉˉˉˉ\ \    |  |    | |  | |  | |  / /  \ \  | |  |ˉˉˉˉˉ|| |ˉˉˉˉˉˉˉˉ 
+\ˉ\      / /    |  |    | |  | |  | | /  ˉˉˉˉ  \  \ \  ˉ| |ˉ | |         
+ \ ˉˉˉˉˉˉ / |ˉˉˉ    ˉˉˉ|| |  | |  | |/ /ˉˉˉˉˉˉ\ \  \ ˉˉˉ /   |  ˉˉˉˉˉˉˉˉ|
+  ˉˉˉˉˉˉˉˉ   ˉˉˉˉˉˉˉˉˉˉ ˉˉˉ  ˉˉˉ  ˉˉˉˉˉ        ˉˉ   ˉˉˉˉˉ     ˉˉˉˉˉˉˉˉˉˉ 
+ * @fileOverview A lightweight image processing library for Javascript , based on Canvas.
+ * @author       <a href="http://blog.starkwang.com">Starkwang</a> 
+ * @github       http://github.com/starkwang/Simage
+ * @version      0.1 
+ */
+
 (function() {
     var matrixData = {
         gaussianBlur: [
@@ -24,6 +40,12 @@
         ],
     };
 
+    /**
+     * Get a two dimen array
+     * @param  {Number} x The width of the matrix
+     * @param  {Number} y The height of the matrix
+     * @return {Array} 
+     */
     function getTwoDimenArray(x, y) {
         var matrix = new Array(x);
         for (var i = 0; i < x; i++) {
@@ -40,7 +62,11 @@
         this.A = A;
     }
 
-
+    /**
+     * @param  {Array}  pixelData  The pixcel data from canvas
+     * @param  {Number} imageWidth The width of the image
+     * @return {Array}  matrix     Return a two dimen array, like a matrix 
+     */
     function toMatrix(pixelData, imageWidth) {
         var matrix = getTwoDimenArray(imageWidth, pixelData.length / 4 / imageWidth);
 
@@ -53,6 +79,10 @@
         return matrix;
     }
 
+    /**
+     * @param  {Array}   dataMatrix  A two dimen array with image data
+     * @return {Array}   pixcelData  A pixcel data array    
+     */
     function decodeMatrix(dataMatrix) {
         var width = dataMatrix.length;
         var height = dataMatrix[0].length;
