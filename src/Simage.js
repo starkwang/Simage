@@ -414,7 +414,6 @@
     }
 
     window.Simage = {
-        toMatrix: toMatrix,
         calculateByMatrix: calculateByMatrix,
         decodeMatrix: decodeMatrix,
         gaussianBlur: gaussianBlur,
