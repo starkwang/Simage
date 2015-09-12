@@ -118,4 +118,4 @@ Blance the histogram of a image with color , also worked with black & white pict
 彩色图片的直方图均衡化，黑白图片也能用。
 
 
-  [1]: http://starkwang.github.io/Simage/
+  [1]: http://simage.avosapps.com/
